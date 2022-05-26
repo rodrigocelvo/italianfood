@@ -1,13 +1,33 @@
 import React from 'react';
+import { useTheme } from 'styled-components';
 
-import { View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Header, Container, Profile, ProfileContainer, ProflieImage, City } from './styles';
 
-import { Header } from '../../components/Header';
+import { IconButton } from '../../components/IconButton';
+import { Search } from '../../components/Search';
 
 export function Home() {
-  return (
-    <Header>
+  const { COLORS } = useTheme();
 
-    </Header>
+  return (
+    <>
+      <Header>
+        <ProfileContainer>
+          <Profile>
+            <ProflieImage source={{ uri: 'https://github.com/rodrigocelvo.png' }} />
+          </Profile>
+          <City>
+            <Feather name="map-pin" size={14} color={COLORS.HEADING} />
+            Taboão da Serra, SP
+          </City>
+          <IconButton icon="bell" notify />
+        </ProfileContainer>
+      </Header>
+
+      <Container>
+        <Search />
+      </Container>
+    </>
   );
 }

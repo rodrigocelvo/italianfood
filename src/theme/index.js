@@ -4,7 +4,6 @@ export default {
 
     PRIMARY_900: '#A40608',
     PRIMARY_100: '#c11e2b',
-    PRIMARY_50: '#C44D41',
 
     SECONDARY_900: '#4c3a3b',
     SECONDARY_500: '#5E4A32',
@@ -14,17 +13,14 @@ export default {
     SUCCESS_900: '#3e9440',
     SUCCESS_50: '#F7FFF9',
 
-    YELLOW: '#fab632',
-    BLUE: '#4a92ed',
-    RED: '#eb4448',
-
     SHAPE: '#150E07',
     TITLE: '#4c3a3b',
-    HEADING: '#FFFF',
+    HEADING: '#FFFFFF',
+    BORDER: '#EEEEEE',
   },
 
   FONTS: {
-    TITLE: 'Poppins_500Medium',
+    TITLE: 'Poppins_600SemiBold',
     TEXT: 'Inter_400Regular',
     HEADING: 'Damion_400Regular'
   },

@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components/native';
 
 import { Routes } from './src/routes';
 import { Home } from './src/pages/Home';
+import { SignIn } from './src/pages/SignIn';
 
 import theme from './src/theme';
 

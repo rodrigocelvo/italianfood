@@ -1,6 +1,7 @@
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 
-import { Container, Content, Waiter, Title, TitleSpan, Text } from './styles';
+import { Container, Content, Image, Title, TitleSpan, Text } from './styles';
 
 import { Button } from '../../components/Button';
 
@@ -8,16 +9,17 @@ import chefImg from '../../assets/chef.png';
 import { useNavigation } from '@react-navigation/native';
 
 export function SignIn() {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   function handleSignIn() {
-    navigation.navigate('Home');
+    // navigation.navigate('Home');
   }
 
   return (
     <>
+      <StatusBar hidden={true} />
       <Container>
-        <Waiter source={chefImg} />
+        <Image source={chefImg} />
         <Content>
           <Title>
             Uma {'\n'}

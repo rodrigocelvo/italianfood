@@ -1,15 +1,19 @@
 import styled, { css } from 'styled-components/native';
+import { ScrollView } from 'react-native';
 
-export const Container = styled.ScrollView`
+export const Container = styled(ScrollView).attrs({
+  showsVerticalScrollIndicator: false,
+})`
 flex: 1;
-background-color:  white;
+background-color:  ${({ theme }) => theme.COLORS.HEADING};
 `;
 
 export const Content = styled.View`
-  padding: 30px;
+  padding: 0 40px;
+  margin-bottom: 64px;
 `
 
-export const Waiter = styled.Image`
+export const Image = styled.Image`
   width: auto ;
   height: 450px;
 `;
@@ -17,9 +21,13 @@ export const Waiter = styled.Image`
 export const Title = styled.Text`
   font-size: 40px;
   font-weight: bold;
-  color: ${({ theme }) => theme.COLORS.SECONDARY_500};
   text-align: center;
   line-height: 40px;
+
+  ${({ theme }) => css`
+    font-family: ${theme.FONTS.TITLE};
+    color: ${theme.COLORS.SECONDARY_500};
+  `}
 `;
 
 export const TitleSpan = styled.Text`
@@ -28,13 +36,13 @@ export const TitleSpan = styled.Text`
 
   ${({ theme }) => css`
     font-family: ${theme.FONTS.HEADING};
-    color: ${theme.COLORS.PRIMARY_900};
+    color: ${theme.COLORS.PRIMARY_100};
   `}
 
 `;
 
 export const Text = styled.Text`
-  margin: 30px 0;
+  margin: 20px 0 40px;
   text-align: center;
   color: ${({ theme }) => theme.COLORS.SHAPE};
 `;
