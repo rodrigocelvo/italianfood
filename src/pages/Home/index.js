@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import { Feather } from '@expo/vector-icons';
-import { Header, Container, Profile, ProfileContainer, ProflieImage, City } from './styles';
+import { Header, Container, Content, Profile, ProfileContainer, ProflieImage, City } from './styles';
 
 import { IconButton } from '../../components/IconButton';
 import { Search } from '../../components/Search';
 import { CategorySelect } from '../../components/CategorySelect';
+import { FoodCard } from '../../components/FoodCard';
+import { ScrollView } from '../../components/ScrollView';
+
+import { foods } from '../../utils/foods';
 
 export function Home() {
   const [category, setCategory] = useState('');
@@ -22,22 +27,39 @@ export function Home() {
 
   return (
     <>
-      <Header>
-        <ProfileContainer>
-          <Profile>
-            <ProflieImage source={{ uri: 'https://github.com/rodrigocelvo.png' }} />
-          </Profile>
-          <City>
-            <Feather name="map-pin" size={14} color={COLORS.HEADING} />
-            Taboão da Serra, SP
-          </City>
-          <IconButton icon="bell" notify />
-        </ProfileContainer>
-      </Header>
-      <Container>
-        <Search />
-        <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
-      </Container>
+      <ScrollView>
+        <Header>
+          <ProfileContainer>
+            <Profile>
+              <ProflieImage source={{ uri: 'https://rodrigocelvo.dev/_next/image?url=%2Fstatic%2Fimages%2Frc.jpeg&w=640&q=75' }} />
+            </Profile>
+            <City>
+              <Feather name="map-pin" size={14} color={COLORS.HEADING} />
+              Taboão da Serra, SP
+            </City>
+            <IconButton icon="bell" notify />
+          </ProfileContainer>
+        </Header>
+
+
+        <Container>
+          <Search />
+
+          <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
+
+          <Content>
+
+            <FlatList
+              data={foods}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <FoodCard data={item} onPress={() => { }} />
+              )}
+              showsVerticalScrollIndicator={false}
+            />
+          </Content>
+        </Container>
+      </ScrollView>
     </>
   );
 }

@@ -6,6 +6,6 @@ export const Container = styled(ScrollView).attrs({
   showsHorizontalScrollIndicator: false,
   contentContainerStyle: { paddingHorizontal: 24 },
 })`
-  min-height: 120px;
-  max-height: 180px;
+  min-height: 180px;
+  max-height: 200px;
 `;

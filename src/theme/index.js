@@ -14,9 +14,9 @@ export default {
     SUCCESS_50: '#F7FFF9',
 
     SHAPE: '#150E07',
-    TITLE: '#4c3a3b',
     HEADING: '#FFFFFF',
     BORDER: '#EEEEEE',
+    TEXT: '#666666',
   },
 
   FONTS: {

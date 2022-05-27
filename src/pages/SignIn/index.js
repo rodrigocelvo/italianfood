@@ -1,6 +1,5 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-
 import { Container, Content, Image, Title, TitleSpan, Text } from './styles';
 
 import { Button } from '../../components/Button';

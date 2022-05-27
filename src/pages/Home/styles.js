@@ -36,3 +36,7 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
 `;
 
+export const Content = styled.View`
+  padding: 0 24px;
+`;
+

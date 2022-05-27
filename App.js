@@ -11,6 +11,7 @@ import { Home } from './src/pages/Home';
 import { SignIn } from './src/pages/SignIn';
 
 import theme from './src/theme';
+import { SafeAreaView } from 'react-native';
 
 export default function App() {
   SplashScreen.preventAutoHideAsync();
@@ -30,10 +31,14 @@ export default function App() {
   SplashScreen.hideAsync();
 
   return (
-    <ThemeProvider theme={theme}>
-      <StatusBar style="light" translucent backgroundColor="transparent" />
-      <Home />
-    </ThemeProvider>
+    <>
+      <SafeAreaView backgroundColor="#c11e2b">
+        <StatusBar style="light" translucent backgroundColor='transparent' />
+      </SafeAreaView>
+      <ThemeProvider theme={theme}>
+        <Home />
+      </ThemeProvider>
+    </>
   );
 }
 
