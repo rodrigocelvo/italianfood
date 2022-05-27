@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import { Feather } from '@expo/vector-icons';
@@ -6,9 +6,19 @@ import { Header, Container, Profile, ProfileContainer, ProflieImage, City } from
 
 import { IconButton } from '../../components/IconButton';
 import { Search } from '../../components/Search';
+import { CategorySelect } from '../../components/CategorySelect';
 
 export function Home() {
+  const [category, setCategory] = useState('');
   const { COLORS } = useTheme();
+
+  function handleCategorySelect(categoryId) {
+    if (categoryId === category) {
+      return setCategory('');
+    }
+
+    setCategory(categoryId);
+  }
 
   return (
     <>
@@ -24,9 +34,9 @@ export function Home() {
           <IconButton icon="bell" notify />
         </ProfileContainer>
       </Header>
-
       <Container>
         <Search />
+        <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
       </Container>
     </>
   );

@@ -4,7 +4,6 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 export const Header = styled.SafeAreaView`
   height: ${getBottomSpace() + 150}px;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY_100};
- 
 `;
 
 export const ProfileContainer = styled.View`
