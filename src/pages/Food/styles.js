@@ -97,6 +97,9 @@ export const IngrientList = styled.View`
 `;
 
 export const Price = styled.View`
+  padding-top: 10px;
+  border-top-width: 1px;
+  border-top-color: ${({ theme }) => theme.COLORS.BORDER};
   flex-direction: row;
   justify-content: center;
 `;

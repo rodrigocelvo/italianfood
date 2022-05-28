@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Feather } from '@expo/vector-icons'
 import { Container, Notify } from './styles';

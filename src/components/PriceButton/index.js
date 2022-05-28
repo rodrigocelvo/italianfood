@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import { Feather } from '@expo/vector-icons';
-
-import { useTheme } from 'styled-components';
+import React from 'react';
 import { Container, Text, Price } from './styles';
 
-export function PriceButton({ price, ...rest }) {
+export function PriceButton({ price, isLoading = false, ...rest }) {
 
   return (
-    <Container>
+    <Container {...rest}>
       <Text>Comprar</Text>
       <Price>R${price}</Price>
     </Container>

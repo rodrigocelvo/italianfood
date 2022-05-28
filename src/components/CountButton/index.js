@@ -2,15 +2,14 @@ import React from 'react';
 import { Feather } from '@expo/vector-icons';
 
 import { useTheme } from 'styled-components';
-import { Container, Button, Count, Text } from './styles';
+import { Container, Button, Text } from './styles';
 
-export function CountButton({ totalItems, ...rest }) {
+export function CountButton({ totalItems, disabled = true, ...rest }) {
   const { COLORS } = useTheme();
 
   return (
-
     <Container>
-      <Button {...rest}>
+      <Button disabled={disabled} {...rest}>
         <Feather name="minus" size={16} color={COLORS.SHAPE} />
       </Button>
 
@@ -20,7 +19,5 @@ export function CountButton({ totalItems, ...rest }) {
         <Feather name="plus" size={16} color={COLORS.PRIMARY_900} />
       </Button>
     </Container>
-
-
   );
 }
