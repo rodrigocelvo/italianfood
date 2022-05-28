@@ -22,6 +22,7 @@ export default {
   FONTS: {
     TITLE: 'Poppins_600SemiBold',
     TEXT: 'Inter_400Regular',
+    TEXT_BOLD: 'Inter_600SemiBold',
     HEADING: 'Damion_400Regular'
   },
 };

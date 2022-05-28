@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 export const Header = styled.SafeAreaView`
-  height: ${getBottomSpace() + 150}px;
+  height: ${getBottomSpace() + 120}px;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY_100};
 `;
 
@@ -34,9 +34,17 @@ export const City = styled.Text`
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
+  margin-bottom: ${getBottomSpace() + 40}px;
 `;
 
 export const Content = styled.View`
   padding: 0 24px;
+`;
+
+export const Label = styled.Text`
+  font-size: 14px;
+  color: ${({ theme }) => theme.COLORS.SHAPE};
+  text-transform: uppercase;
+  margin-top: 16px;
 `;
 

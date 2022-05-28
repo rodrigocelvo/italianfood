@@ -5,19 +5,19 @@ import { Container, Notify } from './styles';
 
 import { useTheme } from 'styled-components';
 
-export function IconButton({ icon, notify, children, ...rest }) {
+export function IconButton({ icon, hasNotification, children, ...rest }) {
   const { COLORS } = useTheme();
 
   return (
-    <Container>
+    <Container {...rest}>
       {icon ? (
         <>
           {
-            notify && (
+            hasNotification && (
               <Notify />
             )
           }
-          <Feather name={icon} size={18} color={COLORS.HEADING} {...rest} />
+          <Feather name={icon} size={18} color={COLORS.HEADING} />
         </>
       ) :
         children

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { FlatList } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import { Feather } from '@expo/vector-icons';
-import { Header, Container, Content, Profile, ProfileContainer, ProflieImage, City } from './styles';
+import { Header, Container, Content, Profile, ProfileContainer, ProflieImage, City, Label } from './styles';
 
 import { IconButton } from '../../components/IconButton';
 import { Search } from '../../components/Search';
 import { CategorySelect } from '../../components/CategorySelect';
 import { FoodCard } from '../../components/FoodCard';
-import { ScrollView } from '../../components/ScrollView';
+
 
 import { foods } from '../../utils/foods';
 
@@ -25,6 +25,8 @@ export function Home() {
     setCategory(categoryId);
   }
 
+  ;
+
   return (
     <>
       <ScrollView>
@@ -37,7 +39,7 @@ export function Home() {
               <Feather name="map-pin" size={14} color={COLORS.HEADING} />
               Taboão da Serra, SP
             </City>
-            <IconButton icon="bell" notify />
+            <IconButton icon="bell" hasNotification />
           </ProfileContainer>
         </Header>
 
@@ -45,18 +47,23 @@ export function Home() {
         <Container>
           <Search />
 
+          <Label style={{ marginLeft: 24 }}>Selectione uma categoria</Label>
           <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
-
           <Content>
+            <Label>Selecione um prato</Label>
 
-            <FlatList
-              data={foods}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <FoodCard data={item} onPress={() => { }} />
-              )}
-              showsVerticalScrollIndicator={false}
-            />
+            {
+              foods.map((food) => (
+                <FoodCard
+                  key={food.id}
+                  data={food}
+                  onPress={() => { }}
+                />
+              ))
+            }
+
+
+
           </Content>
         </Container>
       </ScrollView>

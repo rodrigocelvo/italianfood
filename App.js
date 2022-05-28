@@ -9,6 +9,7 @@ import { ThemeProvider } from 'styled-components/native';
 import { Routes } from './src/routes';
 import { Home } from './src/pages/Home';
 import { SignIn } from './src/pages/SignIn';
+import { Food } from './src/pages/Food';
 
 import theme from './src/theme';
 import { SafeAreaView } from 'react-native';
@@ -36,7 +37,7 @@ export default function App() {
         <StatusBar style="light" translucent backgroundColor='transparent' />
       </SafeAreaView>
       <ThemeProvider theme={theme}>
-        <Home />
+        <Food />
       </ThemeProvider>
     </>
   );
