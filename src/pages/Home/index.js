@@ -12,6 +12,7 @@ import { FoodCard } from '../../components/FoodCard';
 
 
 import { foods } from '../../utils/foods';
+import { useNavigation } from '@react-navigation/native';
 
 export function Home() {
   const [category, setCategory] = useState('');
@@ -25,7 +26,12 @@ export function Home() {
     setCategory(categoryId);
   }
 
-  ;
+
+  const navigation = useNavigation();
+
+  function handleViewFood() {
+    navigation.navigate('Food');
+  }
 
   return (
     <>
@@ -57,7 +63,7 @@ export function Home() {
                 <FoodCard
                   key={food.id}
                   data={food}
-                  onPress={() => { }}
+                  onPress={handleViewFood}
                 />
               ))
             }

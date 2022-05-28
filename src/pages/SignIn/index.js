@@ -8,10 +8,10 @@ import chefImg from '../../assets/chef.png';
 import { useNavigation } from '@react-navigation/native';
 
 export function SignIn() {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   function handleSignIn() {
-    // navigation.navigate('Home');
+    navigation.navigate('Home');
   }
 
   return (
