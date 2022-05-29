@@ -14,7 +14,7 @@ export const Content = styled.View`
 `
 
 export const Image = styled.Image`
-  width: auto ;
+  width: auto;
   height: 450px;
 `;
 
@@ -45,4 +45,17 @@ export const Text = styled.Text`
   margin: 20px 0 40px;
   text-align: center;
   color: ${({ theme }) => theme.COLORS.SHAPE};
+`;
+
+export const AccountContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin: 10px 0 30px;
+`;
+
+export const AccountButton = styled.TouchableOpacity``;
+export const AccountText = styled.Text`
+  font-size: 16px;
+  color: ${({ theme }) => theme.COLORS.SECONDARY_900};
 `;

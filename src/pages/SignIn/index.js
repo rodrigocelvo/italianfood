@@ -1,8 +1,9 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Container, Content, Image, Title, TitleSpan, Text } from './styles';
+import { Container, Content, Image, Title, TitleSpan, Text, AccountContainer, AccountButton, AccountText } from './styles';
 
 import { Button } from '../../components/Button';
+import { Input } from '../../components/Input';
 
 import chefImg from '../../assets/chef.png';
 import { useNavigation } from '@react-navigation/native';
@@ -28,7 +29,22 @@ export function SignIn() {
           </Title>
 
           <Text>Prepare-se para se deliciar {'\n'} com a verdadeira real culinaria.</Text>
-          <Button onPress={handleSignIn} title="Entrar no restaurante" type="primary" />
+
+          <Input icon="user" type="primary" placeholder="E-mail" />
+          <Input icon="lock" type="primary" placeholder="Senha" secureTextEntry />
+
+
+          <AccountContainer>
+            <AccountButton>
+              <AccountText>Criar conta</AccountText>
+            </AccountButton>
+
+            <AccountButton>
+              <AccountText>Esqueci minha senha</AccountText>
+            </AccountButton>
+          </AccountContainer>
+
+          <Button onPress={() => handleSignIn()} title="Entrar no restaurante" type="primary" />
         </Content>
       </Container>
     </>

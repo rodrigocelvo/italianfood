@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const { Navigator, Screen, Group } = createStackNavigator();
 
-import { SignIn } from '../pages/SignIn';
 import { Home } from '../pages/Home';
 import { Favorites } from '../pages/Favorites';
 import { Orders } from '../pages/Orders';
@@ -14,7 +13,7 @@ import { UserTabRoutes } from './user.tab.routes';
 
 export function UserStackRoutes() {
   const user = {
-    isAdmin: false
+    isAdmin: true
   }
 
   return (

@@ -3,14 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { SignIn } from '../pages/SignIn';
 import { UserStackRoutes } from './user.stack.routes';
-import { UserTabRoutes } from './user.tab.routes';
 
 export function Routes() {
-
+  const user = 'asdsad';
 
   return (
     <NavigationContainer>
-      <UserStackRoutes />
+      {user ? <UserStackRoutes /> : <SignIn />}
     </NavigationContainer>
   );
 }

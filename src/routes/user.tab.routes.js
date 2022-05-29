@@ -1,14 +1,14 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { Feather } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
-
-const { Navigator, Screen, Group } = createBottomTabNavigator();
 
 import { Home } from '../pages/Home';
 import { Favorites } from '../pages/Favorites';
 import { Orders } from '../pages/Orders';
 
+const { Navigator, Screen, Group } = createBottomTabNavigator();
 
 export function UserTabRoutes() {
   const { COLORS } = useTheme();
@@ -36,7 +36,7 @@ export function UserTabRoutes() {
           }}
         />
 
-        <Screen name="Favoritos" component={Favorites}
+        <Screen name="Favorites" component={Favorites}
           options={{
             title: 'Favoritos',
             tabBarIcon: ({ color, size }) => (
@@ -45,7 +45,7 @@ export function UserTabRoutes() {
           }}
         />
 
-        <Screen name="Pedidos" component={Orders}
+        <Screen name="Orders" component={Orders}
           options={{
             title: 'Pedidos',
             tabBarIcon: ({ color, size }) => (
