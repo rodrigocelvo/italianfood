@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components/native';
 import { ScrollView } from 'react-native';
-import { Button } from '../../components/Button';
 
 export const Container = styled(ScrollView).attrs({
   showsVerticalScrollIndicator: false,
@@ -32,12 +31,6 @@ export const Upload = styled.View`
   margin-top: -100px;
 `;
 
-export const PickImageButton = styled(Button)`
-  max-width: 90px;
-  margin-left: 32px;
-`;
-
-
 export const Name = styled.Text`
   font-size: 30px;
 
@@ -46,6 +39,7 @@ export const Name = styled.Text`
   font-family: ${theme.FONTS.TITLE};
   `};
 `;
+
 export const Descripition = styled.Text`
   margin-top: 20px;
   font-size: 12px;
@@ -63,7 +57,6 @@ export const Information = styled.View`
   flex-direction: row;
 `;
 
-
 export const IngredientContainer = styled.View`
   margin: 40px 0;
 `;
@@ -75,6 +68,7 @@ export const IngredientContent = styled.View`
   justify-content: space-between;
   align-items: center;
 `;
+
 export const IngredientLabel = styled.Text`
   font-size: 18px;
 
@@ -83,6 +77,7 @@ export const IngredientLabel = styled.Text`
   font-family: ${theme.FONTS.TITLE};
   `};
 `;
+
 export const IngredientTypeTitle = styled.Text`
   font-size: 12px;
 

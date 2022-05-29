@@ -19,7 +19,6 @@ export function UserTabRoutes() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: COLORS.BACKGROUND,
-          height: 100
 
         },
         tabBarActiveTintColor: COLORS.PRIMARY_100,

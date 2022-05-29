@@ -30,7 +30,7 @@ export function FoodCard({ data, ...rest }) {
           </Identification>
 
           <Description>{data.description}</Description>
-          <Price>{data.price}</Price>
+          <Price>R$ {data.price}</Price>
         </Details>
       </Content>
     </Container>

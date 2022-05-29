@@ -1,10 +1,16 @@
 import styled, { css } from 'styled-components/native';
-import { ScrollView } from 'react-native';
+import { ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+
+
+export const KeyboardArea = styled(KeyboardAvoidingView).attrs({
+  behavior: Platform.OS === 'ios' ? 'padding' : null,
+})`
+  flex: 1;
+`;
 
 export const Container = styled(ScrollView).attrs({
   showsVerticalScrollIndicator: false,
 })`
-flex: 1;
 background-color:  ${({ theme }) => theme.COLORS.HEADING};
 `;
 

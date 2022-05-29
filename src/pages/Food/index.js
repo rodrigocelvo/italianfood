@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   Container,
   Header,
   Content,
   Upload,
-  PickImageButton,
   Name,
   Descripition,
   Information,
@@ -28,12 +28,17 @@ import { molhos } from '../../utils/molhos';
 
 export function Food() {
   const [molinho, setMolinhos] = useState('');
+  const navigation = useNavigation();
+
+  function handleGoBack() {
+    navigation.goBack();
+  }
 
 
   return (
     <Container>
       <Header>
-        <IconButton icon="chevron-left" onPress={() => { }} />
+        <IconButton icon="chevron-left" onPress={handleGoBack} />
         <IconButton icon="heart" />
 
       </Header>

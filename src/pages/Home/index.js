@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, KeyboardAvoidingView } from 'react-native';
+
 import { useTheme } from 'styled-components';
 
+import {
+  Header,
+  Container,
+  Content,
+  Profile,
+  ProfileContainer,
+  ProfileImage,
+  City,
+  Label
+} from './styles';
+
+
 import { Feather } from '@expo/vector-icons';
-import { Header, Container, Content, Profile, ProfileContainer, ProflieImage, City, Label } from './styles';
 
 import { IconButton } from '../../components/IconButton';
 import { Search } from '../../components/Search';
@@ -30,17 +42,20 @@ export function Home() {
 
   const navigation = useNavigation();
 
-  function handleViewFood() {
-    navigation.navigate('Food');
-  }
-
-  function handleViewProduct() {
-    navigation.navigate('Product');
-  }
-
   function handleSignOut() {
     signOut();
   }
+
+  function handleViewFood(id) {
+    navigation.navigate('Food');
+  }
+
+  function handleViewProduct(id) {
+    navigation.navigate('Product');
+
+    console.log(id)
+  }
+
 
 
   return (
@@ -49,7 +64,7 @@ export function Home() {
         <Header>
           <ProfileContainer>
             <Profile onPress={handleSignOut}>
-              <ProflieImage source={{ uri: 'https://rodrigocelvo.dev/_next/image?url=%2Fstatic%2Fimages%2Frc.jpeg&w=640&q=75' }} />
+              <ProfileImage source={{ uri: 'https://rodrigocelvo.dev/_next/image?url=%2Fstatic%2Fimages%2Frc.jpeg&w=640&q=75' }} />
             </Profile>
             <City>
               {
@@ -60,9 +75,7 @@ export function Home() {
                     Taboão da Serra, SP {'\n'}
                   </>
                 )
-
               }
-
             </City>
             {user.isAdmin ? (
               <IconButton icon="plus" />
@@ -76,17 +89,21 @@ export function Home() {
         <Container>
           <Search />
 
-          <Label style={{ marginLeft: 24 }}>Selecione uma categoria</Label>
+          <Label style={{ marginLeft: 24 }}>Categorias</Label>
           <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
           <Content>
-            <Label>Selecione um prato</Label>
+            <Label>Pratos</Label>
 
             {
               foods.map((food) => (
                 <FoodCard
                   key={food.id}
                   data={food}
-                  onPress={user.isAdmin ? handleViewProduct : handleViewFood}
+                  onPress={
+                    user.isAdmin
+                      ? () => handleViewProduct(food.id)
+                      : () => handleViewFood(food.id)
+                  }
                 />
               ))
             }

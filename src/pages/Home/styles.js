@@ -18,7 +18,7 @@ export const Profile = styled.TouchableOpacity`
     height: 48px;
 `;
 
-export const ProflieImage = styled.Image`
+export const ProfileImage = styled.Image`
   width: 48px;
   height: 48px;
   border-radius: 16px;

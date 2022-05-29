@@ -29,8 +29,6 @@ export function Product() {
     navigation.goBack();
   }
 
-
-
   return (
     <Container>
       <Header>

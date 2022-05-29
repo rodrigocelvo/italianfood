@@ -37,8 +37,8 @@ export default function App() {
 
   return (
     <>
-      <SafeAreaView backgroundColor="#c11e2b">
-        <StatusBar style="light" translucent backgroundColor='transparent' />
+      <SafeAreaView backgroundColor="#fff">
+        <StatusBar style="dark" translucent backgroundColor='transparent' />
       </SafeAreaView>
       <ThemeProvider theme={theme}>
         <AuthProvider>
