@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Container, Content, Image, Title, TitleSpan, Text, AccountContainer, AccountButton, AccountText } from './styles';
 
@@ -8,11 +8,19 @@ import { Input } from '../../components/Input';
 import chefImg from '../../assets/chef.png';
 import { useNavigation } from '@react-navigation/native';
 
+import { Alert } from 'react-native';
+
 export function SignIn() {
-  const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   function handleSignIn() {
-    navigation.navigate('Home');
+  }
+
+  function handleCreateAccount() {
+  }
+
+  function handleSignOut() {
   }
 
   return (
@@ -30,16 +38,16 @@ export function SignIn() {
 
           <Text>Prepare-se para se deliciar {'\n'} com a verdadeira real culinaria.</Text>
 
-          <Input icon="user" type="primary" placeholder="E-mail" />
-          <Input icon="lock" type="primary" placeholder="Senha" secureTextEntry />
+          <Input onChangeText={setEmail} value={email} icon="user" type="primary" placeholder="E-mail" />
+          <Input onChangeText={setPassword} value={password} icon="lock" type="primary" placeholder="Senha" secureTextEntry />
 
 
           <AccountContainer>
-            <AccountButton>
+            <AccountButton onPress={() => handleCreateAccount()}>
               <AccountText>Criar conta</AccountText>
             </AccountButton>
 
-            <AccountButton>
+            <AccountButton onPress={() => handleSignOut()}>
               <AccountText>Esqueci minha senha</AccountText>
             </AccountButton>
           </AccountContainer>

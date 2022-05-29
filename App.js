@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
@@ -6,11 +7,9 @@ import { Inter_400Regular, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { Damion_400Regular } from '@expo-google-fonts/damion';
 import { ThemeProvider } from 'styled-components/native';
 
+
 import { Routes } from './src/routes';
-import { Home } from './src/pages/Home';
-import { SignIn } from './src/pages/SignIn';
-import { Food } from './src/pages/Food';
-import { Product } from './src/pages/Product';
+
 
 
 import theme from './src/theme';

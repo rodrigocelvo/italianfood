@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { SignIn } from '../pages/SignIn';
 import { UserStackRoutes } from './user.stack.routes';
+import { SignIn } from '../pages/SignIn';
 
 export function Routes() {
-  const user = 'asdsad';
+  const { user } = 'useAuth()';
 
   return (
     <NavigationContainer>

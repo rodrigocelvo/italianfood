@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import { Feather } from '@expo/vector-icons';
@@ -35,7 +35,7 @@ export function Home() {
 
   return (
     <>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Header>
           <ProfileContainer>
             <Profile>
@@ -53,7 +53,7 @@ export function Home() {
         <Container>
           <Search />
 
-          <Label style={{ marginLeft: 24 }}>Selectione uma categoria</Label>
+          <Label style={{ marginLeft: 24 }}>Selecione uma categoria</Label>
           <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
           <Content>
             <Label>Selecione um prato</Label>
@@ -67,8 +67,6 @@ export function Home() {
                 />
               ))
             }
-
-
 
           </Content>
         </Container>

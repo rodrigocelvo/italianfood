@@ -4,8 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 const { Navigator, Screen, Group } = createStackNavigator();
 
 import { Home } from '../pages/Home';
-import { Favorites } from '../pages/Favorites';
-import { Orders } from '../pages/Orders';
 import { Food } from '../pages/Food';
 import { Product } from '../pages/Product';
 
@@ -13,7 +11,7 @@ import { UserTabRoutes } from './user.tab.routes';
 
 export function UserStackRoutes() {
   const user = {
-    isAdmin: true
+    isAdmin: false
   }
 
   return (
@@ -26,10 +24,7 @@ export function UserStackRoutes() {
       ) : (
         <Group>
           <Screen name="UserTabRoutes" component={UserTabRoutes} />
-          <Screen name="Home" component={Home} />
           <Screen name="Food" component={Food} />
-          <Screen name="Favorites" component={Favorites} />
-          <Screen name="Orders" component={Orders} />
         </Group>
       )
       }
