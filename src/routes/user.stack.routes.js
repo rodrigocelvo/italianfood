@@ -8,15 +8,14 @@ import { Food } from '../pages/Food';
 import { Product } from '../pages/Product';
 
 import { UserTabRoutes } from './user.tab.routes';
+import { useAuth } from '../hooks/auth';
 
 export function UserStackRoutes() {
-  const user = {
-    isAdmin: false
-  }
+  const { user } = useAuth();
 
   return (
     <Navigator screenOptions={{ headerShown: false }}>
-      {user?.isAdmin ? (
+      {user.isAdmin ? (
         <Group>
           <Screen name="Home" component={Home} />
           <Screen name="Product" component={Product} />

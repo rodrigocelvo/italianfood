@@ -4,8 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { UserStackRoutes } from './user.stack.routes';
 import { SignIn } from '../pages/SignIn';
 
+import { useAuth } from '../hooks/auth';
+
 export function Routes() {
-  const { user } = 'useAuth()';
+  const { user } = useAuth();
 
   return (
     <NavigationContainer>

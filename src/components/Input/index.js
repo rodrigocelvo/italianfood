@@ -12,7 +12,7 @@ export function Input({ icon, type = 'primary', isFocused, ...rest }) {
     <Container isFocused={isFocused} type={type}>
       {
         icon && (
-          <SimpleLineIcons name={icon} size={20} color={type = 'primary' ? COLORS.SHAPE : COLORS.TEXT} />
+          <SimpleLineIcons name={icon} size={20} color={type === 'primary' ? COLORS.SHAPE : COLORS.TEXT} />
         )
       }
       <InputComponent type={type}

@@ -10,13 +10,15 @@ import { Search } from '../../components/Search';
 import { CategorySelect } from '../../components/CategorySelect';
 import { FoodCard } from '../../components/FoodCard';
 
-
 import { foods } from '../../utils/foods';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../hooks/auth';
+
 
 export function Home() {
   const [category, setCategory] = useState('');
   const { COLORS } = useTheme();
+  const { signOut, user } = useAuth();
 
   function handleCategorySelect(categoryId) {
     if (categoryId === category) {
@@ -26,26 +28,47 @@ export function Home() {
     setCategory(categoryId);
   }
 
-
   const navigation = useNavigation();
 
   function handleViewFood() {
     navigation.navigate('Food');
   }
 
+  function handleViewProduct() {
+    navigation.navigate('Product');
+  }
+
+  function handleSignOut() {
+    signOut();
+  }
+
+
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header>
           <ProfileContainer>
-            <Profile>
+            <Profile onPress={handleSignOut}>
               <ProflieImage source={{ uri: 'https://rodrigocelvo.dev/_next/image?url=%2Fstatic%2Fimages%2Frc.jpeg&w=640&q=75' }} />
             </Profile>
             <City>
-              <Feather name="map-pin" size={14} color={COLORS.HEADING} />
-              Taboão da Serra, SP
+              {
+                user.isAdmin ? 'Administrador' : (
+                  <>
+                    <Feather name="map-pin" size={14} color={COLORS.HEADING} />
+
+                    Taboão da Serra, SP {'\n'}
+                  </>
+                )
+
+              }
+
             </City>
-            <IconButton icon="bell" hasNotification />
+            {user.isAdmin ? (
+              <IconButton icon="plus" />
+            ) : (
+              <IconButton icon="bell" hasNotification />
+            )}
           </ProfileContainer>
         </Header>
 
@@ -63,7 +86,7 @@ export function Home() {
                 <FoodCard
                   key={food.id}
                   data={food}
-                  onPress={handleViewFood}
+                  onPress={user.isAdmin ? handleViewProduct : handleViewFood}
                 />
               ))
             }

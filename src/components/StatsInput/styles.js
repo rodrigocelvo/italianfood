@@ -18,7 +18,9 @@ export const Container = styled.View`
 
 `;
 
-export const InputComponent = styled(TextInput)`
+export const InputComponent = styled(TextInput).attrs(({ theme }) => ({
+  placeholderTextColor: theme.COLORS.TEXT,
+}))`
   flex: 1;
   padding-left: 12px;
   height: 58px;
@@ -26,8 +28,6 @@ export const InputComponent = styled(TextInput)`
   ${({ theme }) => css`
   font-family: ${theme.FONTS.TEXT};
   color: ${theme.COLORS.TEXT};
-
-
   `};
 `;
 

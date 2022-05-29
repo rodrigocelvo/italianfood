@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   Container,
@@ -22,17 +23,25 @@ import { Button } from '../../components/Button';
 
 
 export function Product() {
+  const navigation = useNavigation();
+
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
+
 
   return (
     <Container>
       <Header>
-        <IconButton icon="chevron-left" onPress={() => { }} />
+        <IconButton icon="chevron-left" onPress={handleGoBack} />
+        <IconButton icon="trash" onPress={() => { }} />
       </Header>
       <Upload>
         <Photo uri='https://i.imgur.com/SMmLwFW.png' />
         <PickImageButton
           title="Carregar"
-          type="secondary"
+          type="primary"
           onPress={() => { }}
         />
       </Upload>
@@ -42,7 +51,7 @@ export function Product() {
         <InputGroup>
           <Label>Nome</Label>
 
-          <Input icon="pencil" placeholder="asdasd" />
+          <Input type="secondary" icon="pencil" placeholder="asdasd" />
         </InputGroup>
 
         <InputGroup>
@@ -53,6 +62,7 @@ export function Product() {
             </MaxCharacters>
           </InputGroupHeader>
           <Input
+            type="secondary"
             icon="note"
             isFocused
             placeholder="Descrição do produto"
@@ -74,7 +84,7 @@ export function Product() {
 
         <InputGroup>
           <Label>Molhos</Label>
-          <Input icon="tag" placeholder="Molhos separados por virgula" />
+          <Input type="secondary" icon="tag" placeholder="Molhos separados por virgula" />
         </InputGroup>
 
         <InputGroup>

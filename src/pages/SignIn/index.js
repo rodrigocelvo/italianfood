@@ -8,19 +8,26 @@ import { Input } from '../../components/Input';
 import chefImg from '../../assets/chef.png';
 import { useNavigation } from '@react-navigation/native';
 
+import { useAuth, createAccount } from '../../hooks/auth';
+
 import { Alert } from 'react-native';
 
 export function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { signIn, signOut, createAccount } = useAuth();
+
   function handleSignIn() {
+    signIn(email, password);
   }
 
   function handleCreateAccount() {
+    createAccount(email, password);
   }
 
   function handleSignOut() {
+    signOut()
   }
 
   return (
