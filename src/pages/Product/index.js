@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import uuid from 'react-native-uuid';
+import Icon from 'react-native-remix-icon';
 
 import {
   Container,
@@ -254,7 +254,7 @@ export function Product() {
             onChangeText={setName}
             value={name}
             type="secondary"
-            icon="pencil"
+            icon="pencil-line"
             placeholder="Nome"
           />
         </InputGroup>
@@ -270,7 +270,7 @@ export function Product() {
             onChangeText={setDescription}
             value={description}
             type="secondary"
-            icon="note"
+            icon="edit-2-line"
             placeholder="Descrição do produto"
             multiline
             maxLength={200}
@@ -285,7 +285,7 @@ export function Product() {
             <StatsInput
               onChangeText={setTime}
               value={time}
-              icon="clock"
+              icon="time-fill"
               placeholder="Tempo"
               color="#5499ee"
             />
@@ -293,14 +293,14 @@ export function Product() {
             <StatsInput
               onChangeText={setStar}
               value={star}
-              icon="star"
+              icon="star-fill"
               placeholder="Nota"
               color="#fabf49"
             />
             <StatsInput
               onChangeText={setCalory}
               value={calory}
-              icon="fire"
+              icon="fire-fill"
               placeholder="Kcal"
               color="#ec4a4e"
             />
@@ -314,7 +314,7 @@ export function Product() {
             onChangeText={setPrice}
             value={price}
             type="secondary"
-            icon="wallet"
+            icon="coins-line"
             placeholder="Preço do prato"
             keyboardType="numeric"
           />
@@ -326,7 +326,7 @@ export function Product() {
             onChangeText={setSauce}
             value={sauce}
             type="secondary"
-            icon="tag"
+            icon="price-tag-3-line"
             placeholder="Molhos separados por virgula"
           />
         </InputGroup>

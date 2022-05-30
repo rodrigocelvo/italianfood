@@ -54,8 +54,8 @@ export function SignIn() {
             </Title>
 
             <Text>Prepare-se para se deliciar {'\n'} com a verdadeira real culinaria.</Text>
-            <Input onChangeText={setEmail} value={email} icon="user" type="primary" placeholder="E-mail" />
-            <Input onChangeText={setPassword} value={password} icon="lock" type="primary" placeholder="Senha" secureTextEntry />
+            <Input onChangeText={setEmail} value={email} icon="user-line" type="primary" placeholder="E-mail" />
+            <Input onChangeText={setPassword} value={password} icon="lock-line" type="primary" placeholder="Senha" secureTextEntry />
 
             <AccountContainer>
               <AccountButton onPress={() => handleCreateAccount()}>

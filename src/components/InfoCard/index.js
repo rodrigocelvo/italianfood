@@ -1,14 +1,14 @@
 import React from 'react';
-import { SimpleLineIcons } from '@expo/vector-icons';
+import Icon from 'react-native-remix-icon';
 
-import { Container, Content, Icon, Title } from './styles';
+import { Container, Content, IconArea, Title } from './styles';
 
 export function InfoCard({ icon, title, color, ...rest }) {
   return (
     <Container>
-      <Icon>
-        <SimpleLineIcons name={icon} size={28} color={color} />
-      </Icon>
+      <IconArea>
+        <Icon name={icon} size={28} color={color} />
+      </IconArea>
 
       <Content>
         <Title>{title}</Title>

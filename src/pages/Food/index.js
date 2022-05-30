@@ -96,9 +96,9 @@ export function Food() {
         </Descripition>
 
         <Information>
-          <InfoCard title={time} icon="clock" color='#5499ee' />
-          <InfoCard title={star} icon="star" color='#fabf49' />
-          <InfoCard title={calories} icon="fire" color='#ec4a4e' />
+          <InfoCard title={time} icon="time-fill" color='#5499ee' />
+          <InfoCard title={star} icon="star-fill" color='#fabf49' />
+          <InfoCard title={calories} icon="fire-fill" color='#ec4a4e' />
         </Information>
       </Content>
 

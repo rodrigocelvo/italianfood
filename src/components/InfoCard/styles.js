@@ -11,7 +11,7 @@ export const Container = styled.View`
 
 `;
 
-export const Icon = styled.View`
+export const IconArea = styled.View`
   width: 100%;
   height: 60%;
   justify-content: center;

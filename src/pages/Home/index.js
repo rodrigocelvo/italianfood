@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { firestore, storage } from '../../services/firebase';
 
 import { useTheme } from 'styled-components';
@@ -7,6 +7,7 @@ import {
   ScrollView,
   Header,
   Container,
+  SearchArea,
   Content,
   Profile,
   ProfileContainer,
@@ -19,9 +20,10 @@ import {
 import { Feather } from '@expo/vector-icons';
 
 import { IconButton } from '../../components/IconButton';
-import { Search } from '../../components/Search';
+import { Input } from '../../components/Input';
 import { CategorySelect } from '../../components/CategorySelect';
 import { FoodCard } from '../../components/FoodCard';
+import { FoodList } from '../../components/FoodList';
 
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
@@ -29,7 +31,8 @@ import { useAuth } from '../../hooks/auth';
 
 export function Home() {
   const [category, setCategory] = useState('');
-  const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState('');
+
   const { COLORS } = useTheme();
   const { signOut, user } = useAuth();
 
@@ -47,43 +50,11 @@ export function Home() {
     signOut();
   }
 
-  function handleOpen(id) {
+  function handleViewProduct(id) {
     const route = user?.isAdmin ? 'Product' : 'Food';
 
     navigation.navigate(route, { id });
   }
-
-  function handleViewProduct(id) {
-    navigation.navigate('Product', '');
-  }
-
-  function fecthProducts(value) {
-    const formattedValue = value.toLowerCase().trim();
-
-    firestore
-      .collection('products')
-      .orderBy('name_insensitive')
-      .startAt(formattedValue)
-      .endAt(`${formattedValue}\uf8ff`)
-      .get()
-      .then((response) => {
-        const data = response.docs.map((doc) => {
-          return {
-            id: doc.id,
-            ...doc.data(),
-          };
-        });
-        setProducts(data);
-      })
-      .catch(() => Alert.alert('Erro ao buscar pizzas'));
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      fecthProducts('');
-    }, [])
-  );
-
 
   return (
     <>
@@ -112,9 +83,18 @@ export function Home() {
           </ProfileContainer>
         </Header>
 
-
         <Container>
-          <Search />
+
+          <SearchArea>
+            <Input
+              icon="search-line"
+              type='secondary'
+              onChangeText={setSearch}
+              value={search}
+              placeholder="Buscar por produto..."
+            />
+          </SearchArea>
+
 
           <Label style={{ marginLeft: 24 }}>Categorias</Label>
           <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
@@ -122,19 +102,10 @@ export function Home() {
             <Label>Pratos</Label>
 
             {
-              products.map((food) => (
-                <FoodCard
-                  key={food.id}
-                  data={food}
-                  onPress={
-                    user.isAdmin
-                      ? () => handleOpen(food.id)
-                      : () => handleOpen(food.id)
-                  }
-                />
-              ))
-            }
 
+              <FoodList handleViewProduct={handleViewProduct} search={search} />
+
+            }
           </Content>
         </Container>
       </ScrollView>

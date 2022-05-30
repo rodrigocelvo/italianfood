@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimpleLineIcons } from '@expo/vector-icons';
+import Icon from 'react-native-remix-icon';
 import { useTheme } from 'styled-components/native';
 
 import { Container, InputComponent } from './styles';
@@ -12,7 +12,7 @@ export function StatsInput({ icon, isFocused, color, ...rest }) {
     <Container isFocused={isFocused}>
       {
         icon && (
-          <SimpleLineIcons name={icon} size={20} color={color ? color : COLORS.TEXT} />
+          <Icon name={icon} size={20} color={color ? color : COLORS.TEXT} />
         )
       }
       <InputComponent

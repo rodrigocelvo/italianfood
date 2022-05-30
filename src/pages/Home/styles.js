@@ -13,6 +13,15 @@ export const Header = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.COLORS.PRIMARY_100};
 `;
 
+export const SearchArea = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: -30px;
+  padding: 0px 24px;
+`;
+
 export const ProfileContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
