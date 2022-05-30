@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { firestore, storage } from '../../services/firebase';
+import uuid from 'react-native-uuid';
 
 import {
   Container,
@@ -24,20 +24,21 @@ import { StatsInput } from '../../components/StatsInput';
 import { CategorySelect } from '../../components/CategorySelect';
 import { Button } from '../../components/Button';
 
+import { firestore, storage } from '../../services/firebase';
 
 export function Product() {
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('0,00');
+  const [price, setPrice] = useState('10,00');
+  const [time, setTime] = useState('10min');
   const [sauce, setSauce] = useState('');
-  const [time, setTime] = useState('');
-  const [star, setStar] = useState('');
-  const [calories, setCalories] = useState('');
+  const [star, setStar] = useState('5');
+  const [calory, setCalory] = useState('150kcal');
+  const [photoPath, setPhotoPath] = useState('');
   const [category, setCategory] = useState('1');
   const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -45,6 +46,21 @@ export function Product() {
 
   function handleGoBack() {
     navigation.goBack();
+  }
+
+  async function handleDelete() {
+    firestore
+      .collection('products')
+      .doc(id)
+      .delete()
+      .then(() => {
+        storage
+          .ref(photoPath)
+          .delete()
+          .then(() => navigation.navigate('Home'));
+      });
+
+    navigation.navigate('Home');
   }
 
   async function handlePicker() {
@@ -62,22 +78,8 @@ export function Product() {
     }
   }
 
-  async function handleSubmit() {
-    if (
-      !image ||
-      !name.trim() ||
-      !description.trim() ||
-      !price ||
-      !sauce ||
-      !time ||
-      !star ||
-      !calories ||
-      !category
-    ) {
-      Alert.alert('Cadastro', 'Preencha todos os campos');
-    }
-    setIsLoading(true);
-
+  async function uploadImage(uri) {
+    if (!uri) return;
 
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -89,7 +91,7 @@ export function Product() {
         reject(new TypeError('Network request failed'));
       };
       xhr.responseType = 'blob';
-      xhr.open('GET', image, true);
+      xhr.open('GET', uri, true);
       xhr.send(null);
     });
 
@@ -101,8 +103,37 @@ export function Product() {
 
     blob.close();
 
-    const photo_url = await snapshot.ref.getDownloadURL();
+    return await snapshot.ref.getDownloadURL()
+      .then((url) => {
+        return {
+          getUrl: url,
+          fullPath: ref.fullPath,
+        }
+      })
+      .catch(() => {
+        console.log('Erro ao fazer upload da imagem');
+      })
+  }
 
+  async function handleAdd() {
+    if (
+      !image ||
+      !name.trim() ||
+      !description.trim() ||
+      !price ||
+      !sauce ||
+      !time ||
+      !star ||
+      !calory ||
+      !category
+    ) {
+      Alert.alert('Cadastro', 'Preencha todos os campos');
+    }
+    setIsLoading(true);
+
+    const photo_url = await uploadImage(image);
+
+    if (!photo_url) return;
 
     firestore
       .collection('products')
@@ -114,16 +145,16 @@ export function Product() {
         sauce,
         time,
         star,
-        calories,
+        calory,
         category,
-        photo_url,
-        photo_path: ref.fullPath,
+        photo_url: photo_url.getUrl,
+        photo_path: photo_url.fullPath,
       })
       .then(() => navigation.navigate('Home'))
       .catch(() => {
-        setIsLoading(false);
-        Alert.alert('Cadastro', 'Erro ao cadastrar a pizza.');
-      });
+        Alert.alert('Cadastro', 'Erro ao cadastrar  o produto.');
+      })
+      .finally(() => setIsLoading(false));
   }
 
 
@@ -136,16 +167,17 @@ export function Product() {
       !sauce ||
       !time ||
       !star ||
-      !calories ||
+      !calory ||
       !category
     ) {
-      Alert.alert('Cadastro', 'Preencha todos os campos');
+      Alert.alert('Editar', 'Preencha todos os campos');
     }
     setIsLoading(true);
 
+    const photo_url = await uploadImage(image);
+    if (!photo_url) return;
 
-
-    await firestore
+    firestore
       .collection('products')
       .doc(id)
       .update({
@@ -156,34 +188,24 @@ export function Product() {
         sauce,
         time,
         star,
-        calories,
+        calory,
         category,
-        photo_url,
-        snapshot,
-        photo_path: reference.fullPath,
+        photo_url: photo_url.getUrl,
+        photo_path: photo_url.fullPath,
       })
-      .then(() => navigation.navigate('Home'))
+
+
+      .then(() => {
+        storage
+          .ref(photoPath)
+          .delete()
+          .then(() => navigation.navigate('Home'));
+      })
       .catch(() => {
         setIsLoading(false);
-        Alert.alert('Cadastro', 'Erro ao cadastrar a pizza.');
+        Alert.alert('Editar', 'Erro ao editar o produto.');
       });
   }
-
-  async function handleDelete() {
-    firestore
-      .collection('products')
-      .doc(id)
-      .delete()
-      .then(() => {
-        // storage
-        //   .ref(photoPath)
-        //   .delete()
-        //   .then(() => navigation.navigate('Home'));
-      });
-
-    navigation.navigate('Home');
-  }
-
 
   useEffect(() => {
     if (id) {
@@ -193,6 +215,7 @@ export function Product() {
         .get()
         .then(async (response) => {
           const product = await response.data();
+
           setImage(product.photo_url);
           setName(product.name);
           setDescription(product.description);
@@ -200,22 +223,19 @@ export function Product() {
           setSauce(product.sauce);
           setStar(product.star);
           setPrice(product.price);
+          setCalory(product.calory);
           setCategory(product.category);
-          setCalories(product.calories);
-
-
+          setPhotoPath(product.photo_path);
         })
         .catch((error) => console.log(error));
     }
   }, [id]);
 
-
-
   return (
     <Container>
       <Header>
         <IconButton icon="chevron-left" onPress={handleGoBack} />
-        <IconButton icon="trash" onPress={handleDelete} />
+        {id && <IconButton icon="trash" onPress={handleDelete} />}
       </Header>
       <Upload>
         <Photo uri={image} />
@@ -227,7 +247,6 @@ export function Product() {
       </Upload>
 
       <Form>
-
         <InputGroup>
           <Label>Nome</Label>
 
@@ -244,7 +263,7 @@ export function Product() {
           <InputGroupHeader>
             <Label>Descrição</Label>
             <MaxCharacters>
-              0 de 200 caracteres
+              {description.length} de 200 caracteres
             </MaxCharacters>
           </InputGroupHeader>
           <Input
@@ -279,8 +298,8 @@ export function Product() {
               color="#fabf49"
             />
             <StatsInput
-              onChangeText={setCalories}
-              value={calories}
+              onChangeText={setCalory}
+              value={calory}
               icon="fire"
               placeholder="Kcal"
               color="#ec4a4e"
@@ -317,15 +336,13 @@ export function Product() {
           <CategorySelect setCategory={setCategory} categorySelected={category} />
 
         </InputGroup>
-
         {
           id
             ?
-            <Button type="primary" onPress={handleEdit} title="Editar Prato" />
+            <Button type="primary" onPress={handleEdit} title="Editar Prato" isLoading={isLoading} />
             :
-            <Button onPress={handleSubmit} title="Cadastrar Prato" />
+            <Button onPress={handleAdd} title="Cadastrar Prato" isLoading={isLoading} />
         }
-
       </Form>
     </Container >
   );

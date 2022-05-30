@@ -18,15 +18,14 @@ import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 
 import chefImg from '../../assets/chef.png';
-import { useNavigation } from '@react-navigation/native';
 
-import { useAuth, createAccount } from '../../hooks/auth';
+import { useAuth } from '../../hooks/auth';
 
 export function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn, signOut, createAccount } = useAuth();
+  const { signIn, signOut, createAccount, loading } = useAuth();
 
   function handleSignIn() {
     signIn(email, password);
@@ -68,7 +67,7 @@ export function SignIn() {
               </AccountButton>
             </AccountContainer>
 
-            <Button onPress={() => handleSignIn()} title="Entrar no restaurante" type="primary" />
+            <Button onPress={() => handleSignIn()} title="Entrar no restaurante" type="primary" isLoading={loading} />
           </Content>
 
         </Container>

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { categories } from '../../utils/categories';
-
 import { Category } from '../Category';
+import { categories } from '../../utils/categories';
 
 import { Container } from './styles';
 

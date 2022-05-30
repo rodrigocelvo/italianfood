@@ -1,5 +1,12 @@
 import styled from 'styled-components/native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { ScrollView as ScrollViewComponent } from 'react-native';
+
+export const ScrollView = styled(ScrollViewComponent).attrs({
+  showsVerticalScrollIndicator: false,
+})`
+  background: ${({ theme }) => theme.COLORS.BACKGROUND};
+`
 
 export const Header = styled.SafeAreaView`
   height: ${getBottomSpace() + 120}px;
@@ -33,7 +40,6 @@ export const City = styled.Text`
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
   margin-bottom: ${getBottomSpace() + 40}px;
 `;
 

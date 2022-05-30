@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { ScrollView, KeyboardAvoidingView } from 'react-native';
 import { firestore, storage } from '../../services/firebase';
 
 import { useTheme } from 'styled-components';
 
 import {
+  ScrollView,
   Header,
   Container,
   Content,
@@ -105,7 +105,7 @@ export function Home() {
               }
             </City>
             {user.isAdmin ? (
-              <IconButton icon="plus" onPress={() => handleViewProduct(id)} />
+              <IconButton icon="plus" onPress={() => handleViewProduct()} />
             ) : (
               <IconButton icon="bell" hasNotification />
             )}
