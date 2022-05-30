@@ -21,7 +21,7 @@ export function FoodCard({ data, ...rest }) {
     <Container {...rest}>
 
       <Content>
-        <Image source={{ uri: data.image_url }} />
+        <Image source={{ uri: data.photo_url }} />
 
         <Details>
           <Identification>

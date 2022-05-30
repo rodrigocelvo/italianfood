@@ -78,11 +78,30 @@ export function Product() {
     }
     setIsLoading(true);
 
-    const fileName = new Date().getTime();
-    const reference = storage.ref(`/products/${fileName}.png`);
 
-    await reference.put(image);
-    const photo_url = await reference.getDownloadURL();
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = 'blob';
+      xhr.open('GET', image, true);
+      xhr.send(null);
+    });
+
+    const fileName = new Date().getTime();
+
+    const ref = storage
+      .ref(`/products/${fileName}.png`)
+    const snapshot = await ref.put(blob);
+
+    blob.close();
+
+    const photo_url = await snapshot.ref.getDownloadURL();
 
 
     firestore
@@ -98,7 +117,7 @@ export function Product() {
         calories,
         category,
         photo_url,
-        photo_path: reference.fullPath,
+        photo_path: ref.fullPath,
       })
       .then(() => navigation.navigate('Home'))
       .catch(() => {
@@ -110,7 +129,7 @@ export function Product() {
 
   async function handleEdit() {
     if (
-      // !image ||
+      !image ||
       !name.trim() ||
       !description.trim() ||
       !price ||
@@ -124,11 +143,7 @@ export function Product() {
     }
     setIsLoading(true);
 
-    const fileName = new Date().getTime();
-    const reference = storage.ref(`/products/${fileName}.png`);
 
-    await reference.put(image);
-    const photo_url = await reference.getDownloadURL();
 
     await firestore
       .collection('products')
@@ -144,6 +159,7 @@ export function Product() {
         calories,
         category,
         photo_url,
+        snapshot,
         photo_path: reference.fullPath,
       })
       .then(() => navigation.navigate('Home'))
@@ -177,7 +193,7 @@ export function Product() {
         .get()
         .then(async (response) => {
           const product = await response.data();
-          setImage(product.image);
+          setImage(product.photo_url);
           setName(product.name);
           setDescription(product.description);
           setTime(product.time);

@@ -53,7 +53,7 @@ export function Home() {
     navigation.navigate(route, { id });
   }
 
-  function handleViewProduct() {
+  function handleViewProduct(id) {
     navigation.navigate('Product', '');
   }
 
