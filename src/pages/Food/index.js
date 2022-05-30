@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { firestore, storage } from '../../services/firebase';
 
 import {
   Container,
@@ -26,14 +27,54 @@ import { PriceButton } from '../../components/PriceButton';
 import { molhos } from '../../utils/molhos';
 
 
+
 export function Food() {
+  const [image, setImage] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('0,00');
+  const [sauce, setSauce] = useState('');
+  const [time, setTime] = useState('');
+  const [star, setStar] = useState('');
+  const [calories, setCalories] = useState('');
+  const [category, setCategory] = useState('1');
+  const [isFocused, setIsFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [molinho, setMolinhos] = useState('');
   const navigation = useNavigation();
+
+  const route = useRoute();
+  const { id } = route.params;
 
   function handleGoBack() {
     navigation.goBack();
   }
 
+
+  useEffect(() => {
+    if (id) {
+      firestore
+        .collection('products')
+        .doc(id)
+        .get()
+        .then(async (response) => {
+          const product = await response.data();
+          setImage(product.image);
+          setName(product.name);
+          setDescription(product.description);
+          setTime(product.time);
+          setSauce(product.sauce);
+          setStar(product.star);
+          setPrice(product.price);
+          setCategory(product.category);
+          setCalories(product.calories);
+
+
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [id]);
 
   return (
     <Container>
@@ -47,17 +88,17 @@ export function Food() {
       </Upload>
       <Content>
         <Name>
-          Veggie Feggie
+          {name}
         </Name>
 
         <Descripition>
-          Macarrão, pepino, ervas finas e tomate cereja...
+          {description}
         </Descripition>
 
         <Information>
-          <InfoCard title="50min" icon="clock" color='#5499ee' />
-          <InfoCard title="4.2" icon="star" color='#fabf49' />
-          <InfoCard title="147kcal" icon="fire" color='#ec4a4e' />
+          <InfoCard title={time} icon="clock" color='#5499ee' />
+          <InfoCard title={star} icon="star" color='#fabf49' />
+          <InfoCard title={calories} icon="fire" color='#ec4a4e' />
         </Information>
       </Content>
 
@@ -79,7 +120,7 @@ export function Food() {
 
         <Price>
           <CountButton totalItems="0" />
-          <PriceButton price="59,90" />
+          <PriceButton price={price} />
         </Price>
       </IngredientContainer>
 

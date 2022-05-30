@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ScrollView, KeyboardAvoidingView } from 'react-native';
+import { firestore, storage } from '../../services/firebase';
 
 import { useTheme } from 'styled-components';
 
@@ -22,13 +23,13 @@ import { Search } from '../../components/Search';
 import { CategorySelect } from '../../components/CategorySelect';
 import { FoodCard } from '../../components/FoodCard';
 
-import { foods } from '../../utils/foods';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
 
 
 export function Home() {
   const [category, setCategory] = useState('');
+  const [products, setProducts] = useState([]);
   const { COLORS } = useTheme();
   const { signOut, user } = useAuth();
 
@@ -46,16 +47,42 @@ export function Home() {
     signOut();
   }
 
-  function handleViewFood(id) {
-    navigation.navigate('Food');
+  function handleOpen(id) {
+    const route = user?.isAdmin ? 'Product' : 'Food';
+
+    navigation.navigate(route, { id });
   }
 
-  function handleViewProduct(id) {
-    navigation.navigate('Product');
-
-    console.log(id)
+  function handleViewProduct() {
+    navigation.navigate('Product', '');
   }
 
+  function fecthProducts(value) {
+    const formattedValue = value.toLowerCase().trim();
+
+    firestore
+      .collection('products')
+      .orderBy('name_insensitive')
+      .startAt(formattedValue)
+      .endAt(`${formattedValue}\uf8ff`)
+      .get()
+      .then((response) => {
+        const data = response.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
+        setProducts(data);
+      })
+      .catch(() => Alert.alert('Erro ao buscar pizzas'));
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fecthProducts('');
+    }, [])
+  );
 
 
   return (
@@ -78,7 +105,7 @@ export function Home() {
               }
             </City>
             {user.isAdmin ? (
-              <IconButton icon="plus" />
+              <IconButton icon="plus" onPress={() => handleViewProduct(id)} />
             ) : (
               <IconButton icon="bell" hasNotification />
             )}
@@ -95,14 +122,14 @@ export function Home() {
             <Label>Pratos</Label>
 
             {
-              foods.map((food) => (
+              products.map((food) => (
                 <FoodCard
                   key={food.id}
                   data={food}
                   onPress={
                     user.isAdmin
-                      ? () => handleViewProduct(food.id)
-                      : () => handleViewFood(food.id)
+                      ? () => handleOpen(food.id)
+                      : () => handleOpen(food.id)
                   }
                 />
               ))
