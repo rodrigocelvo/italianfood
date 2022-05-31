@@ -26,6 +26,7 @@ import { CountButton } from '../../components/CountButton';
 import { PriceButton } from '../../components/PriceButton';
 
 import { useAuth } from '../../hooks/auth';
+import { useTheme } from 'styled-components';
 
 export function Food() {
   const [image, setImage] = useState('');
@@ -40,10 +41,12 @@ export function Food() {
   const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [favorite, setFavorite] = useState(false);
 
   const [molho, setMolho] = useState('');
   const [molinho, setMolinhos] = useState('');
   const navigation = useNavigation();
+  const { COLORS } = useTheme();
 
   const route = useRoute();
   const { id } = route.params;
@@ -67,8 +70,7 @@ export function Food() {
       .get()
       .then((doc) => {
         setMolho(doc.data().name);
-      }
-      )
+      })
 
     firestore
       .collection('orders')
@@ -84,6 +86,16 @@ export function Food() {
         Alert.alert('Comra', 'Erro ao tentar comprar.');
       })
       .finally(() => setIsLoading(false));
+  }
+
+  function handleFavorite(item) {
+    firestore
+      .collection('products')
+      .doc(item)
+      .update({
+        liked: true
+      });
+    setFavorite(true);
   }
 
 
@@ -104,6 +116,7 @@ export function Food() {
           setPrice(product.price);
           setCategory(product.category);
           setCalory(product.calory);
+          setFavorite(product.liked);
         })
         .catch((error) => console.log(error));
 
@@ -127,8 +140,22 @@ export function Food() {
   return (
     <Container>
       <Header>
-        <IconButton icon="chevron-left" onPress={handleGoBack} />
-        <IconButton icon="heart" />
+        <IconButton icon="arrow-left-s-line" onPress={handleGoBack} />
+        {
+          favorite
+            ?
+            <IconButton
+              icon="heart-fill"
+              onPress={() => handleFavorite(id)}
+              color={COLORS.PRIMARY_100}
+            />
+            :
+            <IconButton
+              icon="heart-line"
+              onPress={() => handleFavorite(id)}
+              color={COLORS.HEADING}
+            />
+        }
 
       </Header>
       <Upload>

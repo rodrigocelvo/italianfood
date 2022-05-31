@@ -9,19 +9,23 @@ export function FoodList({ handleViewProduct, search, category }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const subscribe = firestore
-      .collection("products")
-      .orderBy('name_insensitive')
-      .onSnapshot((querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => {
-          return {
-            ...doc.data(),
-            id: doc.id,
-          };
+    let isMounted = true;
+    if (isMounted) {
+
+      firestore
+        .collection("products")
+        .orderBy('name_insensitive')
+        .onSnapshot((querySnapshot) => {
+          const data = querySnapshot.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              id: doc.id,
+            };
+          });
+          setProducts(data);
         });
-        setProducts(data);
-      });
-    return () => subscribe();
+    }
+    return () => { isMounted = false }
   }, []);
 
 

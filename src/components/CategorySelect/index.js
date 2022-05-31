@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Category } from '../Category';
-import { categories } from '../../utils/categories';
+import { Category } from '../Category';;
 
 import { Container } from './styles';
 import { firestore } from '../../services/firebase';
@@ -26,9 +25,6 @@ export function CategorySelect({ categorySelected, setCategory }) {
 
     return () => subscribe();
   }, []);
-
-
-
 
   return (
     <Container>

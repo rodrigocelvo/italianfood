@@ -145,6 +145,7 @@ export function Product() {
         category,
         photo_url: photo_url.getUrl,
         photo_path: photo_url.fullPath,
+        liked: false,
       })
       .then(() => navigation.navigate('Home'))
       .catch(() => {
@@ -227,8 +228,8 @@ export function Product() {
   return (
     <Container>
       <Header>
-        <IconButton icon="chevron-left" onPress={handleGoBack} />
-        {id && <IconButton icon="trash" onPress={handleDelete} />}
+        <IconButton icon="arrow-left-s-line" onPress={handleGoBack} />
+        {id && <IconButton icon="delete-bin-7-line" onPress={handleDelete} />}
       </Header>
       <Upload>
         <Photo uri={image} />

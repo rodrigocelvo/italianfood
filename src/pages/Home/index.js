@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { firestore, storage } from '../../services/firebase';
+import React, { useState } from 'react';
 
 import { useTheme } from 'styled-components';
 
@@ -22,10 +21,9 @@ import { Feather } from '@expo/vector-icons';
 import { IconButton } from '../../components/IconButton';
 import { Input } from '../../components/Input';
 import { CategorySelect } from '../../components/CategorySelect';
-import { FoodCard } from '../../components/FoodCard';
 import { FoodList } from '../../components/FoodList';
 
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
 
 export function Home() {
@@ -75,9 +73,9 @@ export function Home() {
               }
             </City>
             {user.isAdmin ? (
-              <IconButton icon="plus" onPress={() => handleViewProduct()} />
+              <IconButton icon="add-line" onPress={() => handleViewProduct()} />
             ) : (
-              <IconButton icon="bell" hasNotification />
+              <IconButton icon="notification-line" hasNotification />
             )}
           </ProfileContainer>
         </Header>

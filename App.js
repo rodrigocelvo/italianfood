@@ -2,9 +2,8 @@ import React from 'react'
 
 import { LogBox } from 'react-native';
 
-LogBox.ignoreLogs(['AsyncStorage has been extracted from react-nativ']);
+LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native']);
 
-import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 import { Inter_400Regular, Inter_600SemiBold } from '@expo-google-fonts/inter';
@@ -16,7 +15,6 @@ import { AuthProvider } from './src/hooks/auth';
 import { Routes } from './src/routes';
 
 import theme from './src/theme';
-import { SafeAreaView } from 'react-native';
 
 export default function App() {
   SplashScreen.preventAutoHideAsync();
@@ -37,9 +35,7 @@ export default function App() {
 
   return (
     <>
-      <SafeAreaView backgroundColor="#c11e2b">
-        <StatusBar style="light" translucent backgroundColor='transparent' />
-      </SafeAreaView>
+
       <ThemeProvider theme={theme}>
         <AuthProvider>
           <Routes />

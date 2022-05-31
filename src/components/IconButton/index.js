@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Feather } from '@expo/vector-icons'
 import { Container, Notify } from './styles';
+import Icon from 'react-native-remix-icon';
 
 import { useTheme } from 'styled-components';
 
-export function IconButton({ icon, hasNotification, children, ...rest }) {
+export function IconButton({ icon, color, hasNotification, children, ...rest }) {
   const { COLORS } = useTheme();
 
   return (
@@ -17,7 +17,7 @@ export function IconButton({ icon, hasNotification, children, ...rest }) {
               <Notify />
             )
           }
-          <Feather name={icon} size={18} color={COLORS.HEADING} />
+          <Icon name={icon} size={18} color={color ? color : COLORS.HEADING} {...rest} />
         </>
       ) :
         children
