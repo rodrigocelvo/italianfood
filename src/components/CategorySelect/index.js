@@ -10,20 +10,23 @@ export function CategorySelect({ categorySelected, setCategory }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const subscribe = firestore
-      .collection("categories")
-      .orderBy('name_insensitive')
-      .onSnapshot((querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => {
-          return {
-            ...doc.data(),
-            id: doc.id,
-          };
-        });
-        setCategories(data);
-      });
+    let isMounted = true;
+    if (isMounted) {
 
-    return () => subscribe();
+      firestore
+        .collection("categories")
+        .orderBy('name_insensitive')
+        .onSnapshot((querySnapshot) => {
+          const data = querySnapshot.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              id: doc.id,
+            };
+          });
+          setCategories(data);
+        });
+    }
+    return () => { isMounted = false }
   }, []);
 
   return (
