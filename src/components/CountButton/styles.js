@@ -15,7 +15,7 @@ export const Container = styled.View`
   margin-right: 10px;
 `;
 
-export const Button = styled(RectButton)``;
+export const Button = styled.TouchableOpacity``;
 
 export const Text = styled.Text`
   font-size: 18px;

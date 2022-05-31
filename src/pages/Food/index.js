@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firestore, storage } from '../../services/firebase';
+import { firestore } from '../../services/firebase';
 
 import {
   Container,
@@ -24,32 +25,67 @@ import { Ingredient } from '../../components/Ingredient';
 import { CountButton } from '../../components/CountButton';
 import { PriceButton } from '../../components/PriceButton';
 
-import { molhos } from '../../utils/molhos';
-
-
+import { useAuth } from '../../hooks/auth';
 
 export function Food() {
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('0,00');
-  const [sauce, setSauce] = useState('');
+  const [sauce, setSauce] = useState([]);
   const [time, setTime] = useState('');
   const [star, setStar] = useState('');
-  const [calories, setCalories] = useState('');
+  const [calory, setCalory] = useState('');
   const [category, setCategory] = useState('1');
   const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
+  const [molho, setMolho] = useState('');
   const [molinho, setMolinhos] = useState('');
   const navigation = useNavigation();
 
   const route = useRoute();
   const { id } = route.params;
+  const { user } = useAuth();
 
   function handleGoBack() {
     navigation.goBack();
   }
+
+
+  async function handleAdd() {
+    if (!molinho) {
+      return Alert.alert('Compra', 'Selecione um molho.');
+    }
+
+    setIsLoading(true);
+
+    firestore
+      .collection('sauces')
+      .doc(molinho)
+      .get()
+      .then((doc) => {
+        setMolho(doc.data().name);
+      }
+      )
+
+    firestore
+      .collection('orders')
+      .add({
+        name: name,
+        sauce: molho,
+        status: 'Preparando',
+        user_id: user?.id,
+        image,
+      })
+      .then(() => navigation.navigate('Home'))
+      .catch(() => {
+        Alert.alert('Comra', 'Erro ao tentar comprar.');
+      })
+      .finally(() => setIsLoading(false));
+  }
+
 
 
   useEffect(() => {
@@ -60,19 +96,31 @@ export function Food() {
         .get()
         .then(async (response) => {
           const product = await response.data();
-          setImage(product.image);
+          setImage(product.photo_url);
           setName(product.name);
           setDescription(product.description);
           setTime(product.time);
-          setSauce(product.sauce);
           setStar(product.star);
           setPrice(product.price);
           setCategory(product.category);
-          setCalories(product.calories);
-
-
+          setCalory(product.calory);
         })
         .catch((error) => console.log(error));
+
+      firestore
+        .collection('sauces')
+        .get()
+        .then(async (response) => {
+          const data = await response.docs.map((doc) => {
+            return {
+              id: doc.id,
+              ...doc.data(),
+            };
+          });
+          setSauce(data)
+        })
+        .catch(() => Alert.alert('Erro ao buscar produtos'));
+
     }
   }, [id]);
 
@@ -84,21 +132,25 @@ export function Food() {
 
       </Header>
       <Upload>
-        <Photo uri='https://i.imgur.com/SMmLwFW.png' />
+        <Photo uri={image} />
       </Upload>
       <Content>
         <Name>
           {name}
+          {'\n'}
+          R$ {price}
         </Name>
 
         <Descripition>
           {description}
+          {'\n'}
+          {category}
         </Descripition>
 
         <Information>
           <InfoCard title={time} icon="time-fill" color='#5499ee' />
           <InfoCard title={star} icon="star-fill" color='#fabf49' />
-          <InfoCard title={calories} icon="fire-fill" color='#ec4a4e' />
+          <InfoCard title={calory} icon="fire-fill" color='#ec4a4e' />
         </Information>
       </Content>
 
@@ -108,19 +160,17 @@ export function Food() {
           <IngredientTypeTitle>Escolha até 1 opção</IngredientTypeTitle>
         </IngredientContent>
 
-
         {
-          molhos.map(molho => (
+          sauce.map(molho => (
             <Ingredient key={molho.id} title={molho.name}
               selected={molinho === molho.id}
               onPress={() => setMolinhos(molho.id)}
-            />
-          ))
+            />))
         }
 
         <Price>
-          <CountButton totalItems="0" />
-          <PriceButton price={price} />
+          <CountButton />
+          <PriceButton onPress={handleAdd} />
         </Price>
       </IngredientContainer>
 

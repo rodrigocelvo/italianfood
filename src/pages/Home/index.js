@@ -28,7 +28,6 @@ import { FoodList } from '../../components/FoodList';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
 
-
 export function Home() {
   const [category, setCategory] = useState('');
   const [search, setSearch] = useState('');
@@ -100,11 +99,12 @@ export function Home() {
           <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
           <Content>
             <Label>Pratos</Label>
-
             {
-
-              <FoodList handleViewProduct={handleViewProduct} search={search} />
-
+              <FoodList
+                handleViewProduct={handleViewProduct}
+                search={search}
+                category={category}
+              />
             }
           </Content>
         </Container>

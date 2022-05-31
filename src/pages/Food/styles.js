@@ -33,6 +33,7 @@ export const Upload = styled.View`
 
 export const Name = styled.Text`
   font-size: 30px;
+  text-align: center;
 
   ${({ theme }) => css`
   color: ${theme.COLORS.SECONDARY_900};

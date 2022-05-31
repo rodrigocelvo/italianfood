@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import Icon from 'react-native-remix-icon';
 
 import {
   Container,
@@ -32,7 +31,6 @@ export function Product() {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('10,00');
   const [time, setTime] = useState('10min');
-  const [sauce, setSauce] = useState('');
   const [star, setStar] = useState('5');
   const [calory, setCalory] = useState('150kcal');
   const [photoPath, setPhotoPath] = useState('');
@@ -121,7 +119,6 @@ export function Product() {
       !name.trim() ||
       !description.trim() ||
       !price ||
-      !sauce ||
       !time ||
       !star ||
       !calory ||
@@ -142,7 +139,6 @@ export function Product() {
         name_insensitive: name.toLowerCase().trim(),
         description,
         price,
-        sauce,
         time,
         star,
         calory,
@@ -164,7 +160,6 @@ export function Product() {
       !name.trim() ||
       !description.trim() ||
       !price ||
-      !sauce ||
       !time ||
       !star ||
       !calory ||
@@ -185,7 +180,6 @@ export function Product() {
         name_insensitive: name.toLowerCase().trim(),
         description,
         price,
-        sauce,
         time,
         star,
         calory,
@@ -220,7 +214,6 @@ export function Product() {
           setName(product.name);
           setDescription(product.description);
           setTime(product.time);
-          setSauce(product.sauce);
           setStar(product.star);
           setPrice(product.price);
           setCalory(product.calory);
@@ -320,16 +313,6 @@ export function Product() {
           />
         </InputGroup>
 
-        <InputGroup>
-          <Label>Molhos</Label>
-          <Input
-            onChangeText={setSauce}
-            value={sauce}
-            type="secondary"
-            icon="price-tag-3-line"
-            placeholder="Molhos separados por virgula"
-          />
-        </InputGroup>
 
         <InputGroup>
           <Label>Categoria</Label>

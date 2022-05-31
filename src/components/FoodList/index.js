@@ -4,11 +4,12 @@ import { FoodCard } from '../FoodCard';
 import { firestore } from '../../services/firebase';
 
 
-export function FoodList({ handleViewProduct, search }) {
+export function FoodList({ handleViewProduct, search, category }) {
+
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    firestore
+    const subscribe = firestore
       .collection("products")
       .orderBy('name_insensitive')
       .onSnapshot((querySnapshot) => {
@@ -20,6 +21,7 @@ export function FoodList({ handleViewProduct, search }) {
         });
         setProducts(data);
       });
+    return () => subscribe();
   }, []);
 
 

@@ -5,7 +5,7 @@ export const Container = styled(RectButton)`
   background-color: ${({ theme }) => theme.COLORS.HEADING};
   width: 60%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 60px;
   border-radius: 16px;
