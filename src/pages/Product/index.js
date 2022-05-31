@@ -229,7 +229,7 @@ export function Product() {
     <Container>
       <Header>
         <IconButton icon="arrow-left-s-line" onPress={handleGoBack} />
-        {id && <IconButton icon="delete-bin-7-line" onPress={handleDelete} />}
+        {id && <IconButton icon="delete-bin-7-fill" onPress={handleDelete} />}
       </Header>
       <Upload>
         <Photo uri={image} />

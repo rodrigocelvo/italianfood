@@ -2,7 +2,6 @@ import React, {
   createContext,
   useContext,
   useState,
-  ReactNode,
   useEffect,
 } from 'react';
 import { Alert } from 'react-native';

@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import * as firebase from "firebase/";
 
 const firebaseConfig = {
   apiKey: "",
@@ -19,6 +19,8 @@ if (firebase.apps.length === 0) {
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+const storage = firebase.storage();
 
-export { auth, firestore };
+export { auth, firestore, storage };
+
 
