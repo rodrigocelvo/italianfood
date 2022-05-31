@@ -54,8 +54,26 @@ export function SignIn() {
             </Title>
 
             <Text>Prepare-se para se deliciar {'\n'} com a verdadeira real culinaria.</Text>
-            <Input onChangeText={setEmail} value={email} icon="user-line" type="primary" placeholder="E-mail" />
-            <Input onChangeText={setPassword} value={password} icon="lock-line" type="primary" placeholder="Senha" secureTextEntry />
+            <Input
+              onChangeText={setEmail}
+              value={email}
+              icon="user-line"
+              type="primary"
+              placeholder="E-mail"
+              autoComplete={false}
+              autoCapitalize="none"
+            />
+
+            <Input o
+              onChangeText={setPassword} v
+              alue={password}
+              icon="lock-line"
+              type="primary"
+              placeholder="Senha"
+              secureTextEntry
+              autoComplete={false}
+              autoCapitalize="none"
+            />
 
             <AccountContainer>
               <AccountButton onPress={() => handleCreateAccount()}>

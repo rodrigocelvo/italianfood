@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { Feather } from '@expo/vector-icons';
+import Icon from 'react-native-remix-icon';
 import { useTheme } from 'styled-components';
 
 import { Home } from '../pages/Home';
@@ -29,8 +29,8 @@ export function UserTabRoutes() {
         <Screen name="Home" component={Home}
           options={{
             title: 'Home',
-            tabBarIcon: ({ color, size }) => (
-              <Feather name="home" color={color} size={size} />
+            tabBarIcon: ({ color, size, focused }) => (
+              <Icon name={focused ? 'home-fill' : 'home-line'} color={color} size={size} />
             ),
           }}
         />
@@ -38,8 +38,8 @@ export function UserTabRoutes() {
         <Screen name="Favorites" component={Favorites}
           options={{
             title: 'Favoritos',
-            tabBarIcon: ({ color, size }) => (
-              <Feather name="heart" color={color} size={size} />
+            tabBarIcon: ({ color, size, focused }) => (
+              <Icon name={focused ? 'heart-fill' : 'heart-line'} color={color} size={size} />
             ),
           }}
         />
@@ -47,8 +47,8 @@ export function UserTabRoutes() {
         <Screen name="Orders" component={Orders}
           options={{
             title: 'Pedidos',
-            tabBarIcon: ({ color, size }) => (
-              <Feather name="shopping-bag" color={color} size={size} />
+            tabBarIcon: ({ color, size, focused }) => (
+              <Icon name={focused ? 'shopping-basket-fill' : 'shopping-basket-line'} color={color} size={size} />
             ),
           }}
         />

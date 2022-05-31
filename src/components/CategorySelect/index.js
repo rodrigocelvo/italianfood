@@ -10,23 +10,18 @@ export function CategorySelect({ categorySelected, setCategory }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-
-      firestore
-        .collection("categories")
-        .orderBy('name_insensitive')
-        .onSnapshot((querySnapshot) => {
-          const data = querySnapshot.docs.map((doc) => {
-            return {
-              ...doc.data(),
-              id: doc.id,
-            };
-          });
-          setCategories(data);
+    firestore
+      .collection("categories")
+      .orderBy('name_insensitive')
+      .onSnapshot((querySnapshot) => {
+        const data = querySnapshot.docs.map((doc) => {
+          return {
+            ...doc.data(),
+            id: doc.id,
+          };
         });
-    }
-    return () => { isMounted = false }
+        setCategories(data);
+      });
   }, []);
 
   return (

@@ -13,13 +13,16 @@ import {
 } from './styles';
 
 import { firestore } from '../../services/firebase';
+import { useAuth } from '../../hooks/auth';
 
 export function Orders() {
   const [orders, setOrders] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const subscribe = firestore
       .collection("orders")
+      .where("user_id", "==", user.id)
       .onSnapshot((querySnapshot) => {
         const data = querySnapshot.docs.map((doc) => {
           return {
@@ -29,15 +32,17 @@ export function Orders() {
         });
         setOrders(data);
       });
+
     return () => subscribe();
   }, []);
+
 
 
 
   return (
     <ScrollView>
       <Container>
-        <Title>Pedidos</Title>
+        <Title>Meus Pedidos</Title>
 
         {
           orders.map((order) => (

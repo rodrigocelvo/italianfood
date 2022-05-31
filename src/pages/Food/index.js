@@ -170,8 +170,6 @@ export function Food() {
 
         <Descripition>
           {description}
-          {'\n'}
-          {category}
         </Descripition>
 
         <Information>

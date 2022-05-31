@@ -1,12 +1,18 @@
 import styled from 'styled-components/native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
-import { ScrollView as ScrollViewComponent } from 'react-native';
+import { ScrollView as ScrollViewComponent, KeyboardAvoidingView } from 'react-native';
 
 export const ScrollView = styled(ScrollViewComponent).attrs({
   showsVerticalScrollIndicator: false,
 })`
   background: ${({ theme }) => theme.COLORS.BACKGROUND};
 `
+
+export const KeyboardView = styled(KeyboardAvoidingView).attrs({
+  behavior: Platform.OS === 'ios' ? 'padding' : null,
+})`
+  flex: 1;
+`;
 
 export const Header = styled.SafeAreaView`
   height: ${getBottomSpace() + 120}px;

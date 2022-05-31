@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import {
+  KeyboardView,
   ScrollView,
   Header,
   Container,
@@ -55,58 +56,60 @@ export function Home() {
 
   return (
     <>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header>
-          <ProfileContainer>
-            <Profile onPress={handleSignOut}>
-              <ProfileImage source={{ uri: 'https://rodrigocelvo.dev/_next/image?url=%2Fstatic%2Fimages%2Frc.jpeg&w=640&q=75' }} />
-            </Profile>
-            <City>
-              {
-                user.isAdmin ? 'Administrador' : (
-                  <>
-                    <Feather name="map-pin" size={14} color={COLORS.HEADING} />
+      <KeyboardView>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Header>
+            <ProfileContainer>
+              <Profile onPress={handleSignOut}>
+                <ProfileImage source={{ uri: 'https://rodrigocelvo.dev/_next/image?url=%2Fstatic%2Fimages%2Frc.jpeg&w=640&q=75' }} />
+              </Profile>
+              <City>
+                {
+                  user.isAdmin ? 'Administrador' : (
+                    <>
+                      <Feather name="map-pin" size={14} color={COLORS.HEADING} />
 
-                    Taboão da Serra, SP {'\n'}
-                  </>
-                )
-              }
-            </City>
-            {user.isAdmin ? (
-              <IconButton icon="add-line" onPress={() => handleViewProduct()} />
-            ) : (
-              <IconButton icon="notification-line" hasNotification />
-            )}
-          </ProfileContainer>
-        </Header>
+                      Taboão da Serra, SP {'\n'}
+                    </>
+                  )
+                }
+              </City>
+              {user.isAdmin ? (
+                <IconButton icon="add-line" onPress={() => handleViewProduct()} />
+              ) : (
+                <IconButton icon="notification-line" hasNotification />
+              )}
+            </ProfileContainer>
+          </Header>
 
-        <Container>
+          <Container>
 
-          <SearchArea>
-            <Input
-              icon="search-line"
-              type='secondary'
-              onChangeText={setSearch}
-              value={search}
-              placeholder="Buscar por produto..."
-            />
-          </SearchArea>
-
-
-          <Label style={{ marginLeft: 24 }}>Categorias</Label>
-          <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
-          <Content>
-            <Label>Pratos</Label>
-            {
-              <FoodList
-                handleViewProduct={handleViewProduct}
-                search={search}
-                category={category}
+            <SearchArea>
+              <Input
+                icon="search-line"
+                type='secondary'
+                onChangeText={setSearch}
+                value={search}
+                placeholder="Buscar por produto..."
               />
-            }
-          </Content>
-        </Container>
-      </ScrollView>
+            </SearchArea>
+
+
+            <Label style={{ marginLeft: 24 }}>Categorias</Label>
+            <CategorySelect setCategory={handleCategorySelect} categorySelected={category} />
+            <Content>
+              <Label>Pratos</Label>
+              {
+                <FoodList
+                  handleViewProduct={handleViewProduct}
+                  search={search}
+                  category={category}
+                />
+              }
+            </Content>
+          </Container>
+        </ScrollView>
+      </KeyboardView>
     </>
   );
 }

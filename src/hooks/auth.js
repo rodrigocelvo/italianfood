@@ -11,7 +11,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import '../services/firebase';
 import { auth, firestore } from '../services/firebase';
 
-
 const USER_COLLECTION = '@italianfood:users';
 
 export const AuthContext = createContext({});
