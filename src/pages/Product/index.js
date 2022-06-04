@@ -35,7 +35,6 @@ export function Product() {
   const [calory, setCalory] = useState('150kcal');
   const [photoPath, setPhotoPath] = useState('');
   const [category, setCategory] = useState('1');
-  const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation();
@@ -57,8 +56,6 @@ export function Product() {
           .delete()
           .then(() => navigation.navigate('Home'));
       });
-
-    navigation.navigate('Home');
   }
 
   async function handlePicker() {
@@ -225,6 +222,10 @@ export function Product() {
     }
   }, [id]);
 
+  function handleHello() {
+    Alert.alert('Hello World!');
+  }
+
   return (
     <Container>
       <Header>
@@ -239,6 +240,8 @@ export function Product() {
           onPress={handlePicker}
         />
       </Upload>
+
+      <Button title="Fecaf" onPress={handleHello} />
 
       <Form>
         <InputGroup>

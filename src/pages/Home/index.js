@@ -90,7 +90,7 @@ export function Home() {
                 type='secondary'
                 onChangeText={setSearch}
                 value={search}
-                placeholder="Buscar por produto..."
+                placeholder="Buscar prato..."
               />
             </SearchArea>
 

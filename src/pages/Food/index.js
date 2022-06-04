@@ -98,8 +98,6 @@ export function Food() {
     setFavorite(true);
   }
 
-
-
   useEffect(() => {
     if (id) {
       firestore
