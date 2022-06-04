@@ -5,7 +5,7 @@
 Aplicativo de comida italiana onde o usuário é possivel criar a conta, fazer pedidos, favoritar produto... <br>
 Nas rotas administrativas o admin é possível criar, listar, editar e deletar pratos. 
 
-Feito para um trabalho da faculdade.
+Feito para um projeto da faculdade.
 
 ## 🛠️ Features
 
